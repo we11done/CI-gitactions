@@ -1,15 +1,8 @@
 import strawberry
 from pydantic import Field, typing
-from src.graphql.scalars.stickynotes_scalar import StickyNotes
 
 @strawberry.type
 class User:
-    id: int
-    name: typing.Optional[str] = ""
-    stickynotes: typing.Optional[typing.List[StickyNotes]] = Field(default_factory=list)
-
-@strawberry.type
-class AddUser:
     id: int
     name: typing.Optional[str] = ""
 
@@ -32,4 +25,3 @@ class UserIdMissing:
 @strawberry.type
 class UserDeleted:
     message: str = "User deleted"
-

@@ -1,4 +1,5 @@
 from sqlalchemy.inspection import inspect
+
 import re
 
 def convert_camel_case(name):
@@ -7,7 +8,7 @@ def convert_camel_case(name):
     return name
 
 def get_only_selected_fields(db_baseclass_name,info):
-    db_relations_fields = inspect(db_baseclass_name).relationships.keys()
+    db_relations_fields = inspect(db_baseclass_name).keys()
     selected_fields = [convert_camel_case(field.name)  for field in info.selected_fields[0].selections if field.name not in db_relations_fields]
     return selected_fields
     

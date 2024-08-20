@@ -45,9 +45,9 @@ jobs:
           echo "POSTGRES_PASSWORD variable : $POSTGRES_PASSWORD"
           echo "variable from shell environment : $env_var"
         env:
-          HOST_PORT: ${{ vars.HOST_PORT }}
-          POSTGRES_USER: ${{ vars.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
+          HOST_PORT: ${{ github.env.test.HOST_PORT }}
+          POSTGRES_USER: ${{ github.env.test.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ github.env.test.POSTGRES_PASSWORD }}
 
       - name: Run Tests
         env:

@@ -7,8 +7,6 @@ on:
   pull_request:
     branches:
       - main
-env:
-  env_var: ${{ vars.test }}
 
 jobs:
   test:
@@ -17,10 +15,10 @@ jobs:
       db_graphql:
         image: postgres:13-alpine
         env:
-          HOST_PORT: ${{ vars.HOST_PORT }}
-          POSTGRES_USER: ${{ vars.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
-          POSTGRES_DB: ${{ vars.POSTGRES_DB }}
+          HOST_PORT: ${{ github.env.test.HOST_PORT }}
+          POSTGRES_USER: ${{ github.env.test.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ github.env.test.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ github.env.test.POSTGRES_DB }}
         ports:
           - 5432:5432
     steps:
@@ -39,12 +37,12 @@ jobs:
 
       - name: Run Tests
         env:
-          HOST_URL: ${{ vars.HOST_URL }}
-          HOST_PORT: ${{ vars.HOST_PORT }}
-          POSTGRES_USER: ${{ vars.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
-          POSTGRES_SERVER: ${{ vars.POSTGRES_SERVER }}
-          POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
-          POSTGRES_DB: ${{ vars.POSTGRES_DB }}
+          HOST_URL: ${{ github.env.test.HOST_URL }}
+          HOST_PORT: ${{ github.env.test.HOST_PORT }}
+          POSTGRES_USER: ${{ github.env.test.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ github.env.test.POSTGRES_PASSWORD }}
+          POSTGRES_SERVER: ${{ github.env.test.POSTGRES_SERVER }}
+          POSTGRES_PORT: ${{ github.env.test.POSTGRES_PORT }}
+          POSTGRES_DB: ${{ github.env.test.POSTGRES_DB }}
         run: |
           python test.py

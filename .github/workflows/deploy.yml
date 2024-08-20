@@ -42,7 +42,7 @@ jobs:
           POSTGRES_USER: ${{ env.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
           POSTGRES_SERVER: ${{ env.POSTGRES_SERVER }}
-          POSTGRES_PORT: ${{ env.HOST_PORT }}
+          POSTGRES_PORT: ${{ env.POSTGRES_PORT }}
           POSTGRES_DB: ${{ env.POSTGRES_DB }}
         run: |
           python test.py

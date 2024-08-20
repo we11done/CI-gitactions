@@ -15,10 +15,10 @@ jobs:
       db_graphql:
         image: postgres:13-alpine
         env:
-          HOST_PORT: ${{ env.test.HOST_PORT }}
-          POSTGRES_USER: ${{ env.test.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ env.test.POSTGRES_PASSWORD }}
-          POSTGRES_DB: ${{ env.test.POSTGRES_DB }}
+          HOST_PORT: ${{ env.HOST_PORT }}
+          POSTGRES_USER: ${{ env.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ env.POSTGRES_DB }}
         ports:
           - 5432:5432
     steps:
@@ -37,12 +37,12 @@ jobs:
 
       - name: Run Tests
         env:
-          HOST_URL: ${{ env.test.HOST_URL }}
-          HOST_PORT: ${{ env.test.HOST_PORT }}
-          POSTGRES_USER: ${{ env.test.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ env.test.POSTGRES_PASSWORD }}
-          POSTGRES_SERVER: ${{ env.test.POSTGRES_SERVER }}
-          POSTGRES_PORT: ${{ env.test.HOST_PORT }}
-          POSTGRES_DB: ${{ env.test.POSTGRES_DB }}
+          HOST_URL: ${{ env.HOST_URL }}
+          HOST_PORT: ${{ env.HOST_PORT }}
+          POSTGRES_USER: ${{ env.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+          POSTGRES_SERVER: ${{ env.POSTGRES_SERVER }}
+          POSTGRES_PORT: ${{ env.HOST_PORT }}
+          POSTGRES_DB: ${{ env.POSTGRES_DB }}
         run: |
           python test.py

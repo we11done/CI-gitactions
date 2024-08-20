@@ -7,6 +7,9 @@ on:
   pull_request:
     branches:
       - main
+env:
+  # Setting an environment variable with the value of a configuration variable
+  env_var: ${{ vars.test }}
 
 jobs:
   test:
@@ -15,10 +18,10 @@ jobs:
       db_graphql:
         image: postgres:13-alpine
         env:
-          HOST_PORT: ${{ env.test.HOST_PORT }}
-          POSTGRES_USER: ${{ env.test.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ env.test.POSTGRES_PASSWORD }}
-          POSTGRES_DB: ${{ env.testPOSTGRES_DB }}
+          HOST_PORT: ${{ vars.HOST_PORT }}
+          POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ vars.POSTGRES_DB }}
         ports:
           - 5432:5432
     steps:

@@ -23,7 +23,7 @@ jobs:
           - 5432:5432
     steps:
       - name: Set environment variable
-        run: echo "MY_ENV_VAR=myValue" >> $GITHUB_ENV
+        run: echo "MY_ENV_VAR=myValue" >> ${{ env.HOST_PORT }}
 
       - name: Use environment variable
         run: |

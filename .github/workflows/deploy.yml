@@ -8,7 +8,6 @@ on:
     branches:
       - main
 env:
-  # Setting an environment variable with the value of a configuration variable
   env_var: ${{ vars.test }}
 
 jobs:
@@ -39,5 +38,13 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run Tests
+        env:
+          HOST_URL: ${{ vars.HOST_URL }}
+          HOST_PORT: ${{ vars.HOST_PORT }}
+          POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
+          POSTGRES_SERVER: ${{ vars.POSTGRES_SERVER }}
+          POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
+          POSTGRES_DB: ${{ vars.POSTGRES_DB }}
         run: |
           python test.py

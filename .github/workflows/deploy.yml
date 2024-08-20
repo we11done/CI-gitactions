@@ -46,7 +46,6 @@ jobs:
         run: |
           pip install ruff
           ruff check --output-format=github ./src
-        continue-on-error: true
 
       - name: Run Unit Tests
         env:

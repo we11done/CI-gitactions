@@ -27,6 +27,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@v3.0.0
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -37,18 +42,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Use variables
-        run: |
-          echo "HOST_PORT variable : $HOST_PORT"
-          echo "POSTGRES_USER variable : $POSTGRES_USER"
-          echo "POSTGRES_PASSWORD variable : $POSTGRES_PASSWORD"
-
-        env:
-          HOST_PORT: ${{ vars.HOST_PORT }}
-          POSTGRES_USER: ${{ vars.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ vars.POSTGRES_PASSWORD }}
-
-      - name: Run Tests
+      - name: Run Unit Tests
         env:
           HOST_URL: ${{ vars.HOST_URL }}
           HOST_PORT: ${{ vars.HOST_PORT }}

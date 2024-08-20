@@ -9,7 +9,7 @@ on:
       - main
 env:
   # Setting an environment variable with the value of a configuration variable
-  env_var: ${{ github.vars.test }}
+  env_var: ${{ github.env.test.HOST_URL }}
 
 jobs:
   test:

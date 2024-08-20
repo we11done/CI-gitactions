@@ -15,18 +15,18 @@ jobs:
       db_graphql:
         image: postgres:13-alpine
         env:
-          HOST_PORT: 5000
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: testPass
-          POSTGRES_DB: graphql_db
+          HOST_PORT: ${{ env.test.HOST_PORT }}
+          POSTGRES_USER: ${{ env.test.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ env.test.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ env.test.POSTGRES_DB }}
         ports:
           - 5432:5432
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: 3.9
 
@@ -37,12 +37,12 @@ jobs:
 
       - name: Run Tests
         env:
-          HOST_URL: localhost
-          HOST_PORT: 5000
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: testPass
-          POSTGRES_SERVER: localhost
-          POSTGRES_PORT: 5432
-          POSTGRES_DB: graphql_db
+          HOST_URL: ${{ env.test.HOST_URL }}
+          HOST_PORT: ${{ env.test.HOST_PORT }}
+          POSTGRES_USER: ${{ env.test.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ env.test.POSTGRES_PASSWORD }}
+          POSTGRES_SERVER: ${{ env.test.POSTGRES_SERVER }}
+          POSTGRES_PORT: ${{ env.test.HOST_PORT }}
+          POSTGRES_DB: ${{ env.test.POSTGRES_DB }}
         run: |
           python test.py

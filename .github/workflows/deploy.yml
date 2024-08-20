@@ -22,6 +22,13 @@ jobs:
         ports:
           - 5432:5432
     steps:
+      - name: Set environment variable
+        run: echo "MY_ENV_VAR=myValue" >> $GITHUB_ENV
+
+      - name: Use environment variable
+        run: |
+          echo "The value of MY_ENV_VAR is $MY_ENV_VAR"
+
       - name: Checkout code
         uses: actions/checkout@v4
 

@@ -85,8 +85,8 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           message: |
             ## Linting
-            ${{ steps.ruff.outputs.message }}
+            ${{ steps.ruff.outputs }}
             ## Security
-            ${{ steps.snyk.outputs.summary }}
+            ${{ steps.snyk.outputs }}
             ## Unit Tests
-            ${{ steps.sonarcloud.outputs.status }}
+            ${{ steps.sonarcloud.outputs }}

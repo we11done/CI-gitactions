@@ -9,16 +9,6 @@ on:
       - main
 
 jobs:
-  security:
-    runs-on: ubuntu-latest
-    environment:
-      name: test
-    steps:
-      - uses: actions/checkout@master
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
   test:
     runs-on: ubuntu-latest
     environment:
@@ -41,6 +31,11 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: 3.9
+
+      - name: Check for vulnerabilities
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       - name: Lint with Ruff
         run: |

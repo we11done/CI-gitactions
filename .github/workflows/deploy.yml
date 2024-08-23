@@ -86,4 +86,3 @@ jobs:
           message: |
             ## Linting
             ${{ steps.ruff.conclusion }}
-          filePath: vuln.json

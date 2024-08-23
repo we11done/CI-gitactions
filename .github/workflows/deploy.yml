@@ -50,8 +50,9 @@ jobs:
       - name: Check for security vulnerabilities
         id: snyk
         run: |
+          pip install snyk-to-html
           snyk auth ${{ secrets.SNYK_TOKEN }}
-          snyk test --severity-threshold=high --json
+          snyk test --severity-threshold=high --json | snyk-to-html -o results.html
         continue-on-error: true
 
       - name: Run Unit Tests
@@ -79,12 +80,11 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: Comment Results
-        uses: thollander/actions-comment-pull-request@v2
+        uses: thollander/actions-comment-pull-request@v2.5.0
         if: github.event_name == 'pull_request'
         with:
           GITHUB_TOKEN: ${{ github.token }}
           message: |
             ## Linting
             ${{ steps.ruff.conclusion }}
-            ## Security
-            ${{ steps.snyk.outputs }}
+          filePath: results.html

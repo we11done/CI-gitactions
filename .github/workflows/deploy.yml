@@ -54,7 +54,7 @@ jobs:
         id: snyk
         run: |
           snyk auth ${{ secrets.SNYK_TOKEN }}
-          snyk test --severity-threshold=high --json-file-output=vuln.json
+          snyk test --severity-threshold=high
         continue-on-error: true
 
       - name: Run Unit Tests
@@ -87,5 +87,8 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ github.token }}
           message: |
+            # Pipeline Results
             ## Linting
-            ${{ steps.ruff.outputs.message }}
+            ${{ steps.ruff.conclusion }}
+            ## Security
+            ${{ steps.snyk.outputs }}

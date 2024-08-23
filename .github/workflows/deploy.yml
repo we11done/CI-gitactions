@@ -38,6 +38,8 @@ jobs:
 
       - name: Lint with Ruff
         uses: chartboost/ruff-action@v1
+        with:
+          src: './src'
 
       - name: Install dependencies
         run: |

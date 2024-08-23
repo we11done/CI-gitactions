@@ -51,7 +51,7 @@ jobs:
         id: snyk
         run: |
           snyk auth ${{ secrets.SNYK_TOKEN }}
-          snyk test --severity-threshold=high --json | snyk-to-html -o results.html
+          snyk test --severity-threshold=high --json-file-output=vuln.json
         continue-on-error: true
 
       - name: Run Unit Tests
@@ -86,4 +86,4 @@ jobs:
           message: |
             ## Linting
             ${{ steps.ruff.conclusion }}
-          filePath: results.html
+          filePath: vuln.json

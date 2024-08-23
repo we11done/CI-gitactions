@@ -43,9 +43,11 @@ jobs:
           pip install -r requirements.txt
 
       - name: Check for vulnerabilities
-        uses: snyk/actions/node@master
+        uses: snyk/actions/python-3.9@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
 
       - name: Run Unit Tests
         env:

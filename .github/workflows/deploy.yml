@@ -19,7 +19,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: snyk test --file=requirements.txt --package-manager=pip
+          args: snyk test --command=python3
 
   test:
     runs-on: ubuntu-latest

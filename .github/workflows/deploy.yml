@@ -16,11 +16,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Check for vulnerabilities
-        uses: snyk/actions/python-3.8@master
+        uses: snyk/actions/python@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: snyk test --file=requirements.txt --command=python3 --package-manager=pip
 
   test:
     runs-on: ubuntu-latest

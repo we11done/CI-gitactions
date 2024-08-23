@@ -91,4 +91,4 @@ jobs:
             ## Linting
             ${{ steps.ruff.conclusion }}
             ## Security
-            ${{ steps.snyk.outputs }}
+            ${{ steps.snyk.outputs.summary }}

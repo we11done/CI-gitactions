@@ -14,6 +14,7 @@ jobs:
     environment:
       name: test
     steps:
+      - uses: actions/checkout@v4
       - name: Check for vulnerabilities
         uses: snyk/actions/python-3.8@master
         env:

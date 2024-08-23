@@ -47,7 +47,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: snyk test --file=requirements.txt
+          args: snyk test --file=requirements.txt --command=python3
 
       - name: Run Unit Tests
         env:

@@ -15,7 +15,7 @@ jobs:
       name: test
     steps:
       - name: Check for vulnerabilities
-        uses: snyk/actions/python-3.9@master
+        uses: snyk/actions/python-3.8@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:

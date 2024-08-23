@@ -88,4 +88,4 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           message: |
             ## Linting
-            ${{ steps.ruff.conclusion }}
+            ${{ steps.ruff.outputs.message }}

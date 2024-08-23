@@ -51,7 +51,7 @@ jobs:
         id: snyk
         run: |
           snyk auth ${{ secrets.SNYK_TOKEN }}
-          snyk test --severity-threshold=high
+          snyk test --severity-threshold=high --json
         continue-on-error: true
 
       - name: Run Unit Tests
@@ -85,8 +85,6 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           message: |
             ## Linting
-            ${{ steps.ruff.outputs }}
+            ${{ steps.ruff.conclusion }}
             ## Security
             ${{ steps.snyk.outputs }}
-            ## Unit Tests
-            ${{ steps.sonarcloud.outputs }}

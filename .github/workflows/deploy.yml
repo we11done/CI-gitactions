@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - code-cov
   pull_request:
     branches:
       - main
@@ -62,6 +63,12 @@ jobs:
           POSTGRES_DB: ${{ vars.POSTGRES_DB }}
         run: |
           python test.py
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: unittests
 
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v3.0.0

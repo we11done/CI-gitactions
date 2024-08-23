@@ -9,17 +9,6 @@ on:
       - main
 
 jobs:
-  security:
-    runs-on: ubuntu-latest
-    environment:
-      name: test
-    steps:
-      - uses: actions/checkout@v4
-      - name: Check for vulnerabilities
-        uses: snyk/actions/python@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
   test:
     runs-on: ubuntu-latest
     environment:
@@ -38,6 +27,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Set up Snyk
+        uses: snyk/actions/setup@master
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -52,6 +44,11 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+
+      - name: Check for security vulnerabilities
+        run: |
+          snyk auth ${{ secrets.SNYK_TOKEN }}
+          snyk test
 
       - name: Run Unit Tests
         env:

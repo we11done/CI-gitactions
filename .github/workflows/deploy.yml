@@ -37,6 +37,7 @@ jobs:
           python-version: 3.9
 
       - name: Lint with Ruff
+        id: ruff
         uses: chartboost/ruff-action@v1
         with:
           src: './src'
@@ -47,6 +48,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Check for security vulnerabilities
+        id: snyk
         run: |
           snyk auth ${{ secrets.SNYK_TOKEN }}
           snyk test --severity-threshold=high
@@ -71,6 +73,20 @@ jobs:
           flags: unittests
 
       - name: SonarCloud Scan
+        id: sonarcloud
         uses: sonarsource/sonarcloud-github-action@v3.0.0
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Comment Results
+        uses: thollander/actions-comment-pull-request@v2
+        if: github.event_name == 'pull_request'
+        with:
+          GITHUB_TOKEN: ${{ github.token }}
+          message: |
+            ## Linting
+            ${{ steps.ruff.outputs.message }}
+            ## Security
+            ${{ steps.snyk.outputs.summary }}
+            ## Unit Tests
+            ${{ steps.sonarcloud.outputs.status }}

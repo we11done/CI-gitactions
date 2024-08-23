@@ -50,7 +50,6 @@ jobs:
       - name: Check for security vulnerabilities
         id: snyk
         run: |
-          pip install snyk-to-html
           snyk auth ${{ secrets.SNYK_TOKEN }}
           snyk test --severity-threshold=high --json | snyk-to-html -o results.html
         continue-on-error: true

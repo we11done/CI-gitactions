@@ -15,6 +15,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest # GitHub-hosted runner
+    outputs:
+      message: ${{ steps.snyk.outputs.message }}
     environment:
       name: test
     services:
@@ -52,12 +54,11 @@ jobs:
 
       - name: Check for security vulnerabilities
         id: snyk
+
         run: |
           snyk auth ${{ secrets.SNYK_TOKEN }}
           result=$(snyk test --severity-threshold=critical)
-          echo "$result"
-          snyk test --severity-threshold=critical
-        continue-on-error: true
+          echo "message=$result" >> "$GITHUB_OUTPUT"
 
       - name: Run Unit Tests
         env:

@@ -54,6 +54,8 @@ jobs:
         id: snyk
         run: |
           snyk auth ${{ secrets.SNYK_TOKEN }}
+          result=$(snyk test --severity-threshold=critical)
+          echo "message=$result" >> "$GITHUB_OUPUT"
           snyk test --severity-threshold=critical
         continue-on-error: true
 
@@ -90,6 +92,8 @@ jobs:
             # Pipeline Results
             ## Linting
             ${{ steps.ruff.conclusion }}
+            ## Security
+            ${{ steps.snyk.outputs.message }}
 
   deploy:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'

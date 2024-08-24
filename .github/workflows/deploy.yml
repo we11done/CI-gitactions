@@ -14,7 +14,9 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # GitHub-hosted runner
+    outputs:
+      message: ${{ steps.snyk.outputs.message }}
     environment:
       name: test
     services:
@@ -52,10 +54,12 @@ jobs:
 
       - name: Check for security vulnerabilities
         id: snyk
-        run: |
+
+        run: | #check for specical characters in the output (newline, etc)
           snyk auth ${{ secrets.SNYK_TOKEN }}
           snyk test --severity-threshold=critical
-        continue-on-error: true
+          result="good" 
+          echo "message=$result" >> "$GITHUB_OUTPUT"
 
       - name: Run Unit Tests
         env:
@@ -90,6 +94,8 @@ jobs:
             # Pipeline Results
             ## Linting
             ${{ steps.ruff.conclusion }}
+            ## Security
+            ${{ steps.snyk.outputs.message }}
 
   deploy:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'

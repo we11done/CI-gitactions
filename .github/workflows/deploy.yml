@@ -54,7 +54,8 @@ jobs:
         id: snyk
         run: |
           snyk auth ${{ secrets.SNYK_TOKEN }}
-          echo "result=$(snyk test --severity-threshold=critical)" >> "$GITHUB_OUTPUT"
+          $result=$(snyk test --severity-threshold=critical)
+          echo "message=$result" >> $GITHUB_OUTPUT
         continue-on-error: true
 
       - name: Run Unit Tests
@@ -91,4 +92,4 @@ jobs:
             ## Linting
             ${{ steps.ruff.conclusion }}
             ## Security
-            ${{ steps.snyk.outputs.result}}
+            ${{ steps.snyk.outputs.message}}

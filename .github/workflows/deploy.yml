@@ -54,7 +54,8 @@ jobs:
         id: snyk
         run: |
           snyk auth ${{ secrets.SNYK_TOKEN }}
-          $result=$(snyk test --severity-threshold=critical)
+          snyk test --severity-threshold=critical
+          $result=$(snyk test --severity-threshold=critical 2>&1)
           echo "message=$result" >> $GITHUB_OUTPUT
         continue-on-error: true
 

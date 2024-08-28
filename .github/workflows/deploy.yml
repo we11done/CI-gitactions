@@ -57,9 +57,9 @@ jobs:
 
         run: | #check for specical characters in the output (newline, etc)
           snyk auth ${{ secrets.SNYK_TOKEN }}
-          result=$(snyk test --severity-threshold=critical | sed 's/\\n/\n/g')
+          result=$(snyk test --severity-threshold=critical) | sed "s/[^[:alnum:]]//g
           echo $result
-          echo "message=$result" >> "$GITHUB_OUTPUT"
+          echo "message=${result//$'\n'/\\n}" >> "$GITHUB_OUTPUT"
 
       - name: Run Unit Tests
         env:

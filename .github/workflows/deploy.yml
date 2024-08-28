@@ -59,7 +59,7 @@ jobs:
           snyk auth ${{ secrets.SNYK_TOKEN }}
           result=$(snyk test --severity-threshold=critical | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2};?)?)?[mGK]//g")
           echo $result
-          echo "message=${result//$'\n'/\ }" >> "$GITHUB_OUTPUT"
+          echo "message=${result//$'\n'/\<br />}" >> "$GITHUB_OUTPUT"
 
       - name: Run Unit Tests
         env:
